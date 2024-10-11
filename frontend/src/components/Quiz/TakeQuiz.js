@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getQuizDetails } from '../../api';
+import { getQuizDetails } from '../../api/index';
 
 const TakeQuiz = ({ match }) => {
   const [quiz, setQuiz] = useState(null);
@@ -16,7 +16,7 @@ const TakeQuiz = ({ match }) => {
       }
     };
     fetchQuiz();
-  }, [match.params.id]);
+  }, [match.params?.id]);
 
   const handleChange = (questionId, option) => {
     setAnswers((prev) => ({ ...prev, [questionId]: option }));

@@ -11,6 +11,22 @@ exports.register = async (req, res) => {
   res.status(201).json({ message: "User registered successfully" });
 };
 
+
+// Add this function in your authController.js
+const tokenBlacklist = [];
+exports.logout = (req, res) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+  if (token) {
+    tokenBlacklist.push(token); // Add the token to the blacklist
+    return res.json({ message: "User logged out successfully" });
+  }
+  return res.status(400).json({ message: "No token provided" });
+};
+
+// Middleware to check if token is blacklisted
+const isTokenBlacklisted = (token) => tokenBlacklist.includes(token);
+
+// Example usage in the login route
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -20,5 +36,10 @@ exports.login = async (req, res) => {
   if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+
+  if (isTokenBlacklisted(token)) {
+    return res.status(401).json({ message: "Token is invalid" });
+  }
+
   res.json({ token });
 };

@@ -17,7 +17,7 @@ const tokenBlacklist = [];
 exports.logout = (req, res) => {
   const token = req.headers['authorization']?.split(' ')[1];
   if (token) {
-    tokenBlacklist.push(token); // Add the token to the blacklist
+    tokenBlacklist.push(token); 
     return res.json({ message: "User logged out successfully" });
   }
   return res.status(400).json({ message: "No token provided" });

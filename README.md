@@ -3,11 +3,11 @@
 ## Overview
 This project is a RESTful API developed using Node.js and Express.js for an online quiz application. The API supports user authentication, quiz management, and the ability for users to take quizzes and view results. The quizzes are multiple-choice questions (MCQs) with a single correct answer out of four options.
 
-## Features
+# Features
 
 ## User Authentication:
-## Register a new user.
-## Login for existing users (authentication via JWT tokens).
+- Register a new user.
+- Login for existing users (authentication via JWT tokens).
 
 ## MCQ Quiz Management:
 - Create and structure quizzes.
